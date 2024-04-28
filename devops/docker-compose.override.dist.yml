@@ -1,0 +1,17 @@
+version: '3.6'
+
+services:
+  php-fpm:
+    volumes:
+      - ../:/var/www/service:delegated
+      - ~/.ssh:/home/developer/.ssh:ro
+    build:
+      args:
+        UID: ${UID}
+        GID: ${GID}
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge

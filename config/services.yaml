@@ -1,0 +1,28 @@
+parameters:
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/Constant/'
+            - '../src/DependencyInjection/'
+            - '../src/DTO/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    App\Service\BinDataProviderInterface: '@App\Service\BinDataProvider\Binlist'
+    App\Service\ExchangeRateProviderInterface: '@App\Service\ExchangeRateProvider\ExchangeRatesApi'
+
+when@dev:
+    services:
+        App\Service\BinDataProviderInterface: '@App\Service\BinDataProvider\Mock'
+        App\Service\ExchangeRateProviderInterface: '@App\Service\ExchangeRateProvider\Mock'
+
+when@test:
+    services:
+        App\Service\BinDataProviderInterface: '@App\Service\BinDataProvider\Mock'
+        App\Service\ExchangeRateProviderInterface: '@App\Service\ExchangeRateProvider\Mock'
